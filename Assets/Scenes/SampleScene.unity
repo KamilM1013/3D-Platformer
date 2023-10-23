@@ -144,7 +144,7 @@ MonoBehaviour:
   inAirTimer: 0
   leapingVelocity: 3
   fallingVelocity: 33
-  rayCastHeightOffSet: 0
+  rayCastHeightOffSet: 0.5
   maxDistance: 1
   groundLayer:
     serializedVersion: 2
