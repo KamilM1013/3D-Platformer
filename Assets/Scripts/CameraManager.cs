@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour
     public float cameraFollowSpeed = 0.2f;
     public float cameraLookSpeed = 2;
     public float cameraPivotSpeed = 2;
+    public float cameraPanSpeed = 2;
 
     public float lookAngle; //Camera looking up and down
     public float pivotAngle; //Camera looking left and right
@@ -38,8 +39,9 @@ public class CameraManager : MonoBehaviour
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        RotateCamera();
+        //RotateCamera();
         HandleCameraCollisions();
+        //PanCamera();
     }
     
     private void FollowTarget()
@@ -67,6 +69,15 @@ public class CameraManager : MonoBehaviour
         rotation.x = pivotAngle;
         targetRotation = Quaternion.Euler(rotation);
         cameraPivot.localRotation = targetRotation;
+    }
+
+    private void PanCamera()
+    {
+        Vector3 moveDirection = new Vector3(inputManager.cameraInputX, inputManager.cameraInputY, 0);
+        Vector3 moveVector = transform.TransformDirection(moveDirection);
+
+        moveVector *= cameraPanSpeed * Time.deltaTime;
+        transform.position += moveVector;
     }
 
     private void HandleCameraCollisions()
