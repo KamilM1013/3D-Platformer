@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CameraManager : MonoBehaviour
 {
-    InputManager inputManager;
+    /*InputManager inputManager;
 
     public Transform targetTransform;   //The object the camera will follow
     public Transform cameraPivot;       //The object the camera uses to pivot
@@ -100,6 +100,6 @@ public class CameraManager : MonoBehaviour
 
         cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
         cameraTransform.localPosition = cameraVectorPosition;
-    }
+    }*/
 
 }
