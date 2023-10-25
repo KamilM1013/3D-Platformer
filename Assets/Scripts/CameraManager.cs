@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
     public void HandleAllCameraMovement()
     {
         FollowTarget();
-        //RotateCamera();
+        RotateCamera();
         HandleCameraCollisions();
         //PanCamera();
     }
