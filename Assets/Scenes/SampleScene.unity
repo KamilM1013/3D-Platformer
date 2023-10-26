@@ -441,23 +441,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 497734125}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &319226804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319226801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7286d97f06128dd42bd29f3ddc842cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationFactorPerFrame: 15
-  runMultiplier: 3
-  gravity: -9.8
-  maxJumpHeight: 1
-  maxJumpTime: 0.5
 --- !u!143 &319226805
 CharacterController:
   m_ObjectHideFlags: 0
@@ -484,6 +467,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &319226808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319226801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baac0f4b24f0914e8e28c7382d9c18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,23 +795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150f8e6494b80ce43bac71e9b610b2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
-  cameraPivot: {fileID: 1237776036}
-  cameraTransform: {fileID: 0}
-  collisionLayers:
-    serializedVersion: 2
-    m_Bits: 65
-  cameraCollisionOffset: 0.1
-  minCollisionOffset: 0.2
-  cameraCollisionRadius: 1.5
-  cameraFollowSpeed: 0.2
-  cameraLookSpeed: 2
-  cameraPivotSpeed: 2
-  cameraPanSpeed: 2
-  lookAngle: 0
-  pivotAngle: 0
-  minPivotAngle: -35
-  maxPivotAngle: 35
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,11 +1428,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 319226804}
+      addedObject: {fileID: 319226805}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 319226805}
+      addedObject: {fileID: 319226808}
   m_SourcePrefab: {fileID: 100100000, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
 --- !u!1 &644552033
 GameObject:
