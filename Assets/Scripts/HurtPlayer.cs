@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Acorn : MonoBehaviour
+public class HurtPlayer : MonoBehaviour
 {
 
-    public int value;
-
-    public GameObject pickupEffect;
+    public int damageToGive = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +23,7 @@ public class Acorn : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            FindAnyObjectByType<GameManager>().AddAcorns(value);
-
-            Instantiate(pickupEffect, transform.position, transform.rotation);
-
-            Destroy(gameObject);
+            FindObjectOfType<HealthManager>().HurtPlayer(damageToGive);
         }
     }
 }

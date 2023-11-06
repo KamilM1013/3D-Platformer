@@ -23,6 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _currentMovement;
     Vector3 _currentRunMovement;
     Vector3 _appliedMovement;
+    Vector3 _cameraRelativeMovement;
     bool _isMovementPressed;
     bool _isRunPressed;
 
@@ -138,7 +139,37 @@ public class PlayerStateMachine : MonoBehaviour
     {
         HandleRotation();
         _currentState.UpdateStates();
-        _characterController.Move(_appliedMovement * Time.deltaTime);
+
+        _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
+        _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+
+    }
+
+    Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
+    {
+        // store the Y value of the original vector to rotate
+        float currentYValue = vectorToRotate.y;
+
+        // get the forward and right directional vectors of the camera
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        // remove the Y values to ignore upward/downward camera angles
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        // re-normalize both vectors so they each have a magnitude of 1
+        cameraForward = cameraForward.normalized;
+        cameraRight = cameraRight.normalized;
+
+        // rotate the X and Z VectorToRotate values to camera space
+        Vector3 cameraForwardZProduct = vectorToRotate.z * cameraForward;
+        Vector3 cameraRightXProduct = vectorToRotate.x * cameraRight;
+
+        // the sum of both products is the Vector3 in camera space
+        Vector3 vectorRotatedToCameraSpace = cameraForwardZProduct + cameraRightXProduct;
+        vectorRotatedToCameraSpace.y = currentYValue;
+        return vectorRotatedToCameraSpace;
     }
 
     void HandleRotation()
@@ -146,9 +177,9 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 positionToLookAt;
 
         // the change in position our character should point to
-        positionToLookAt.x = _currentMovement.x;
+        positionToLookAt.x = _cameraRelativeMovement.x;
         positionToLookAt.y = _zero;
-        positionToLookAt.z = _currentMovement.z;
+        positionToLookAt.z = _cameraRelativeMovement.z;
 
         // the current rotation of our character
         Quaternion currentRotation = transform.rotation;
