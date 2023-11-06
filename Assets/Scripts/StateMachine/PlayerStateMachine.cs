@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
@@ -35,7 +36,7 @@ public class PlayerStateMachine : MonoBehaviour
     // gravity variable
     float initialGravity = -9.8f;
 
-    //jumping variables
+    // jumping variables
     bool _isJumpPressed = false;
     float _initialJumpVelocity;
     float _maxJumpHeight = 2.0f;
@@ -46,6 +47,14 @@ public class PlayerStateMachine : MonoBehaviour
     Dictionary<int, float> _initialJumpVelocities = new Dictionary<int, float>();
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
     Coroutine _currentJumpResetRoutine = null;
+
+    // knockback variables
+    public float _knockBackForce;
+    public float _knockBackTime;
+    float _knockBackCounter;
+
+    // death variable
+    bool _isDead;
 
     // state variables
     PlayerBaseState _currentState;
@@ -140,9 +149,15 @@ public class PlayerStateMachine : MonoBehaviour
         HandleRotation();
         _currentState.UpdateStates();
 
+        if (_knockBackCounter <= 0)
+        {
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
-
+        }
+        else
+        {
+            _knockBackCounter -= Time.deltaTime;
+        }
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
@@ -222,4 +237,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _playerInput.CharacterControls.Disable();
     }
+
+    /*public void Knockback(Vector3 direction)
+    {
+        _knockBackCounter = _knockBackTime;
+
+        _appliedMovement = direction * _knockBackForce;
+    }*/
 }

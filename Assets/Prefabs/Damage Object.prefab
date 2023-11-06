@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2443048314748971237}
   - component: {fileID: 34103907672816573}
   - component: {fileID: 33245212868016728}
+  - component: {fileID: 3101264860301551111}
   m_Layer: 0
   m_Name: Damage Object
   m_TagString: Untagged
@@ -125,5 +126,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Size: {x: 1.1, y: 2, z: 1.1}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &3101264860301551111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103899226328527473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b830e775d598e479c34eded1fd33a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageToGive: 1

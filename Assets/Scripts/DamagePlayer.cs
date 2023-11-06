@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HurtPlayer : MonoBehaviour
+public class DamagePlayer : MonoBehaviour
 {
 
     public int damageToGive = 1;
@@ -23,7 +23,10 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            FindObjectOfType<HealthManager>().HurtPlayer(damageToGive);
+            Vector3 hitDirection = other.transform.position - transform.position;
+            hitDirection = hitDirection.normalized;
+
+            FindObjectOfType<HealthManager>().TakeDamage(damageToGive, hitDirection);
         }
     }
 }
