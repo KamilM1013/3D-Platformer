@@ -66,6 +66,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         yield return new WaitForSeconds(0.5f);
         Ctx.JumpCount = 0;
     }
+
     void HandleJump()
     {
         if (Ctx.JumpCount < 3 && Ctx.CurrentJumpResetRoutine != null)

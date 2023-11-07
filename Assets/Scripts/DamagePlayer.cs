@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamagePlayer : MonoBehaviour
 {
 
-    public int damageToGive = 1;
+    public int _damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +21,12 @@ public class DamagePlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag.Equals("Player"))
         {
             Vector3 hitDirection = other.transform.position - transform.position;
             hitDirection = hitDirection.normalized;
 
-            FindObjectOfType<HealthManager>().TakeDamage(damageToGive, hitDirection);
+            FindObjectOfType<PlayerManager>().TakeDamage(_damage, hitDirection);
         }
     }
 }

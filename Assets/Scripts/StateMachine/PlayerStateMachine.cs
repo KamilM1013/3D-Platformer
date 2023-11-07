@@ -11,6 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     CharacterController _characterController;
     Animator _animator;
     PlayerInput _playerInput;
+    PlayerManager _healthManager;
 
     // variables to store optimized setter/getter parameter IDs
     int _isWalkingHash;
@@ -18,6 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
     int _isJumpingHash;
     int _jumpCountHash;
     int _isFallingHash;
+    int _isAttackingHash;
 
     // variables to store player input values
     Vector2 _currentMovementInput;
@@ -48,13 +50,8 @@ public class PlayerStateMachine : MonoBehaviour
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
     Coroutine _currentJumpResetRoutine = null;
 
-    // knockback variables
-    public float _knockBackForce;
-    public float _knockBackTime;
-    float _knockBackCounter;
-
-    // death variable
-    bool _isDead;
+    // attacking variables
+    bool _isAttackPressed;
 
     // state variables
     PlayerBaseState _currentState;
@@ -73,11 +70,13 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsJumpingHash { get { return _isJumpingHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
     public int IsFallingHash { get { return _isFallingHash; } }
+    public int IsAttackingHash { get { return _isAttackingHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
+    public bool IsAttackPressed { get { return _isAttackPressed; } }
     public float Gravity { get { return initialGravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
@@ -92,6 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput = new PlayerInput();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _healthManager = GetComponent<PlayerManager>();
 
         // setup state
         _states = new PlayerStateFactory(this);
@@ -104,6 +104,7 @@ public class PlayerStateMachine : MonoBehaviour
         _isJumpingHash = Animator.StringToHash("isJumping");
         _jumpCountHash = Animator.StringToHash("jumpCount");
         _isFallingHash = Animator.StringToHash("isFalling");
+        _isAttackingHash = Animator.StringToHash("attack");
 
         // set the player input callbacks
         _playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -113,6 +114,8 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Run.canceled += OnRun;
         _playerInput.CharacterControls.Jump.started += OnJump;
         _playerInput.CharacterControls.Jump.canceled += OnJump;
+        _playerInput.CharacterControls.Attack.started += OnAttack;
+        _playerInput.CharacterControls.Attack.canceled += OnAttack;
 
         SetupJumpVariables();
     }
@@ -149,14 +152,10 @@ public class PlayerStateMachine : MonoBehaviour
         HandleRotation();
         _currentState.UpdateStates();
 
-        if (_knockBackCounter <= 0)
+        if (!_healthManager.IsDead)
         {
-        _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
-        _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
-        }
-        else
-        {
-            _knockBackCounter -= Time.deltaTime;
+            _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
+            _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
         }
     }
 
@@ -221,6 +220,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isJumpPressed = context.ReadValueAsButton();
         _requireNewJumpPress = false;
+    }
+
+    void OnAttack(InputAction.CallbackContext context)
+    {
+        _isAttackPressed = context.ReadValueAsButton();
     }
 
     void OnRun(InputAction.CallbackContext context)

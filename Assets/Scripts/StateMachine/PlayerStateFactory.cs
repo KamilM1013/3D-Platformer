@@ -7,7 +7,7 @@ enum PlayerStates
     run,
     grounded,
     jump,
-    fall
+    fall,
 }
 
 public class PlayerStateFactory  
