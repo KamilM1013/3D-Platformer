@@ -19,7 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
     int _isJumpingHash;
     int _jumpCountHash;
     int _isFallingHash;
-    int _isAttackingHash;
+    int _attackHash;
 
     // variables to store player input values
     Vector2 _currentMovementInput;
@@ -45,13 +45,17 @@ public class PlayerStateMachine : MonoBehaviour
     float _maxJumpTime = 0.75f;
     bool _isJumping = false;
     bool _requireNewJumpPress = false;
+    bool _doubleJump;
     int _jumpCount = 0;
     Dictionary<int, float> _initialJumpVelocities = new Dictionary<int, float>();
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
     Coroutine _currentJumpResetRoutine = null;
 
+    bool _inRiver = false;
+
     // attacking variables
     bool _isAttackPressed;
+    int _attackCount = 0;
 
     // state variables
     PlayerBaseState _currentState;
@@ -65,18 +69,21 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
+    public int AttackCount { get { return _attackCount; } set { _attackCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
     public int IsRunningHash { get { return _isRunningHash; } }
     public int IsJumpingHash { get { return _isJumpingHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
     public int IsFallingHash { get { return _isFallingHash; } }
-    public int IsAttackingHash { get { return _isAttackingHash; } }
+    public int AttackHash { get { return _attackHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
+    public bool DoubleJump { get { return _doubleJump; } set { _doubleJump = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsAttackPressed { get { return _isAttackPressed; } }
+    public bool InRiver { get { return _inRiver; } set { _inRiver = value; } }
     public float Gravity { get { return initialGravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
@@ -104,7 +111,7 @@ public class PlayerStateMachine : MonoBehaviour
         _isJumpingHash = Animator.StringToHash("isJumping");
         _jumpCountHash = Animator.StringToHash("jumpCount");
         _isFallingHash = Animator.StringToHash("isFalling");
-        _isAttackingHash = Animator.StringToHash("attack");
+        _attackHash = Animator.StringToHash("isAttacking");
 
         // set the player input callbacks
         _playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -149,6 +156,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(InRiver);
         HandleRotation();
         _currentState.UpdateStates();
 

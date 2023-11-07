@@ -182,7 +182,6 @@ public class PlayerManager : MonoBehaviour
         _flashCounter = _flashLength;
     }
 
-
     public void AddLife(int lifeAmount)
     {
         _currentHealth += lifeAmount;

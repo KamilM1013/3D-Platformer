@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerBaseState, IRootState
+public class PlayerAttackState : PlayerBaseState, IRootState
 {
-    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerAttackState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
@@ -13,7 +13,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
-        HandleJump();
+        HandleAttack();
     }
 
     public override void UpdateState()
@@ -24,21 +24,11 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, false);
-        if (Ctx.IsJumpPressed)
-        {
-            Ctx.RequireNewJumpPress = true;
-        }
-        Ctx.CurrentJumpResetRoutine = Ctx.StartCoroutine(IJumpResetRoutine());
-        if (Ctx.JumpCount == 3)
-        {
-            Ctx.JumpCount = 0;
-            Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
-        }
+        Ctx.Animator.SetBool(Ctx.AttackHash, false);
     }
 
     public override void InitializeSubState()
-    {
+    {                 
         if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SetSubState(Factory.Idle());
@@ -59,34 +49,17 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed)
-        {
-            SwitchState(Factory.Attack());
-        }
-        /*else if (Ctx.IsJumpPressed)
-        {
-            SwitchState(Factory.Jump());
-        }*/
     }
 
-    IEnumerator IJumpResetRoutine()
+    IEnumerator IAttackResetRoutine()
     {
         yield return new WaitForSeconds(0.5f);
-        Ctx.JumpCount = 0;
+        Ctx.AttackCount = 0;
     }
 
-    void HandleJump()
+    void HandleAttack()
     {
-        if (Ctx.JumpCount < 3 && Ctx.CurrentJumpResetRoutine != null)
-        {
-            Ctx.StopCoroutine(Ctx.CurrentJumpResetRoutine);
-        }
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
-        Ctx.IsJumping = true;
-        Ctx.JumpCount += 1;
-        Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
-        Ctx.CurrentMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
-        Ctx.AppliedMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
+        Ctx.Animator.SetBool(Ctx.AttackHash, true);
     }
 
     public void HandleGravity()
