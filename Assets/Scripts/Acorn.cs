@@ -23,7 +23,7 @@ public class Acorn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             FindAnyObjectByType<GameManager>().AddAcorns(_value);
 

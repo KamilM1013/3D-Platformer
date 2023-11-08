@@ -5,13 +5,13 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     // declare reference variables
-    PlayerManager _playerManager;
+    PlayerStateMachine _playerStateMachine;
 
     public GameObject _pickupEffect;
 
     private void Awake()
     {
-        _playerManager = FindObjectOfType<PlayerManager>();
+        _playerStateMachine = FindObjectOfType<PlayerStateMachine>();
     }
 
     // Start is called before the first frame update
@@ -26,11 +26,12 @@ public class Checkpoint : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player") && _playerStateMachine.IsAttackPressed)
         {
-            _playerManager.SetCheckpoint(transform.position);
+            PlayerManager playerManager = other.GetComponent<PlayerManager>();
+            playerManager.SetCheckpoint(transform.position);
 
             Instantiate(_pickupEffect, transform.position, transform.rotation);
 

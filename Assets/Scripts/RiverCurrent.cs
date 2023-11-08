@@ -8,7 +8,7 @@ public class RiverCurrent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerStateMachine _playerStateMachine = other.GetComponent<PlayerStateMachine>();
             _playerStateMachine.InRiver = true;
@@ -17,7 +17,7 @@ public class RiverCurrent : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerStateMachine _playerStateMachine = other.GetComponent<PlayerStateMachine>();
             _playerStateMachine.InRiver = false;
@@ -26,7 +26,7 @@ public class RiverCurrent : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             CharacterController controller = other.GetComponent<CharacterController>();
             if (controller != null && controller.isGrounded)

@@ -11,7 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     CharacterController _characterController;
     Animator _animator;
     PlayerInput _playerInput;
-    PlayerManager _healthManager;
+    PlayerManager _playerManager;
 
     // variables to store optimized setter/getter parameter IDs
     int _isWalkingHash;
@@ -63,6 +63,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     // getters and setters
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
+    public PlayerStateFactory States { get { return _states; } }
     public Animator Animator { get { return _animator; } }
     public CharacterController CharacterController { get { return _characterController; } }
     public Coroutine CurrentJumpResetRoutine { get { return _currentJumpResetRoutine; } set { _currentJumpResetRoutine = value; } }
@@ -89,8 +90,10 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
     public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
-    public float RunMultiplier { get { return _runMultiplier; } }
+    public float RunMultiplier { get { return _runMultiplier; } set { _runMultiplier = value; } }
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
+    public Vector3 CameraRelativeMovement { get { return _cameraRelativeMovement; } set { _cameraRelativeMovement = value; } }
+
 
     void Awake()
     {
@@ -98,7 +101,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput = new PlayerInput();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-        _healthManager = GetComponent<PlayerManager>();
+        _playerManager = GetComponent<PlayerManager>();
 
         // setup state
         _states = new PlayerStateFactory(this);
@@ -156,11 +159,10 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(InRiver);
         HandleRotation();
         _currentState.UpdateStates();
 
-        if (!_healthManager.IsDead)
+        if (!_playerManager.IsDead)
         {
             _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
             _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
