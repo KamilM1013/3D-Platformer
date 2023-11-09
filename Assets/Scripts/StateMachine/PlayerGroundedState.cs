@@ -18,6 +18,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+        Debug.Log("Entered Ground State");
         InitializeSubState();
         HandleGravity();
     }
@@ -29,7 +30,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-
+        Debug.Log("Exited Ground State");
     }
 
     public override void InitializeSubState()
@@ -60,8 +61,9 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Fall());
         }
-        else if (Ctx.IsAttackPressed)
+        else if (Ctx.IsAttackPressed && !Ctx.IsInAttackState)
         {
+            Ctx.IsInAttackState = true;
             SwitchState(Factory.Attack());
         }
     }

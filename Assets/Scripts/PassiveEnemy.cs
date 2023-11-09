@@ -29,7 +29,7 @@ public class PassiveEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !_playerStateMachine.IsAttackPressed)
+        if (other.CompareTag("Player"))
         {
             Vector3 hitDirection = other.transform.position - transform.position;
             hitDirection = hitDirection.normalized;
@@ -37,7 +37,7 @@ public class PassiveEnemy : MonoBehaviour
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             playerManager.TakeDamage(_damage, hitDirection);
         }
-        else if (other.CompareTag("Player") && _playerStateMachine.IsAttackPressed)
+        else if (other.CompareTag("Attack Area") && _playerStateMachine.IsAttacking)
         {
             Instantiate(_destroyEffect, transform.position, transform.rotation);
             Destroy(gameObject);

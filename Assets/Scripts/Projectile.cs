@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
             // Destroy the projectile when it hits the player
             Destroy(gameObject);
         }
-        else
+        else if (other.CompareTag("Dead Zone"))
         {
             Debug.Log("Else Statement");
             // Instantiate hit effect

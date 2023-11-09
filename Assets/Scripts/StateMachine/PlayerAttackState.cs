@@ -12,19 +12,24 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+        Debug.Log("Entered Attack State");
         InitializeSubState();
         HandleAttack();
     }
 
     public override void UpdateState()
     {
+        Ctx.AttackTimer += Time.deltaTime;
         HandleGravity();
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
+        Debug.Log("Exited Attack State");
+        Ctx.IsAttacking = false;
         Ctx.Animator.SetBool(Ctx.AttackHash, false);
+        Ctx.IsInAttackState = false;
     }
 
     public override void InitializeSubState()
@@ -45,20 +50,24 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CharacterController.isGrounded)
+        if (Ctx.CharacterController.isGrounded && Ctx.AttackTimer >= Ctx.TimeToAttack)
         {
+            Ctx.AttackTimer = 0;
+            Ctx.IsAttacking = false;
+            Ctx.AttackArea.SetActive(Ctx.IsAttacking);
             SwitchState(Factory.Grounded());
         }
     }
 
     IEnumerator IAttackResetRoutine()
     {
-        yield return new WaitForSeconds(0.5f);
-        Ctx.AttackCount = 0;
+        yield return new WaitForSeconds(Ctx.AttackTimer);
     }
 
     void HandleAttack()
     {
+        Ctx.IsAttacking = true;
+        Ctx.AttackArea.SetActive(Ctx.IsAttacking);
         Ctx.Animator.SetBool(Ctx.AttackHash, true);
     }
 

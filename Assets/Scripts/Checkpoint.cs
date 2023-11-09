@@ -6,12 +6,14 @@ public class Checkpoint : MonoBehaviour
 {
     // declare reference variables
     PlayerStateMachine _playerStateMachine;
+    PlayerManager _playerManager;
 
     public GameObject _pickupEffect;
 
     private void Awake()
     {
         _playerStateMachine = FindObjectOfType<PlayerStateMachine>();
+        _playerManager = FindObjectOfType<PlayerManager>();
     }
 
     // Start is called before the first frame update
@@ -26,16 +28,15 @@ public class Checkpoint : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
+    /*private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && _playerStateMachine.IsAttackPressed)
+        if (other.CompareTag("Attack Area") && _playerStateMachine.IsAttackPressed)
         {
-            PlayerManager playerManager = other.GetComponent<PlayerManager>();
-            playerManager.SetCheckpoint(transform.position);
+            _playerManager.SetCheckpoint(transform.position);
 
             Instantiate(_pickupEffect, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
-    }
+    }*/
 }

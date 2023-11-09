@@ -55,7 +55,12 @@ public class PlayerStateMachine : MonoBehaviour
 
     // attacking variables
     bool _isAttackPressed;
+    bool _isAttacking = false;
+    bool _isInAttackState = false;
     int _attackCount = 0;
+    float _attackTimer = 0f;
+    float _timeToAttack = 0.25f;
+    GameObject _attackArea = default;
 
     // state variables
     PlayerBaseState _currentState;
@@ -69,6 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Coroutine CurrentJumpResetRoutine { get { return _currentJumpResetRoutine; } set { _currentJumpResetRoutine = value; } }
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
+    public GameObject AttackArea { get { return _attackArea; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int AttackCount { get { return _attackCount; } set { _attackCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
@@ -85,6 +91,10 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsAttackPressed { get { return _isAttackPressed; } }
     public bool InRiver { get { return _inRiver; } set { _inRiver = value; } }
+    public bool IsAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
+    public bool IsInAttackState { get { return _isInAttackState; } set { _isInAttackState = value; } }
+    public float AttackTimer { get { return _attackTimer; } set { _attackTimer = value; } }
+    public float TimeToAttack { get { return _timeToAttack; } set { _timeToAttack = value; } }
     public float Gravity { get { return initialGravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
@@ -102,6 +112,7 @@ public class PlayerStateMachine : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _playerManager = GetComponent<PlayerManager>();
+        Transform childTransform = transform.Find("Attack Range");
 
         // setup state
         _states = new PlayerStateFactory(this);
@@ -153,6 +164,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _attackArea = transform.GetChild(0).gameObject;
         _characterController.Move(_appliedMovement * Time.deltaTime);
     }
 
