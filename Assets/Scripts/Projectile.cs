@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float _speed = 10.0f;    // Projectile speed
-    public int _damage = 1;        // Damage dealt by the projectile
-    public float _offsetEnemy = 1;      // Offset from the enemy
+    public float _speed = 1.75f;     // Projectile speed
+    public int _damage = 1;         // Damage dealt by the projectile
+    public float _offsetEnemy = 0;  // Offset from the enemy
     public float _offsetPlayerHeight = 1.7f;
-    bool _launch = false;
 
-    private Vector3 _launchPosition; // Starting position
-    private Vector3 _direction;     // Direction in which the projectile moves
+    private Vector3 _launchPosition;  // Starting position
+    private Vector3 _direction;      // Direction in which the projectile moves
 
     CharacterController _characterController;
     Vector3 _lastKnownPlayerPosition; // Store the last known player position
 
     public GameObject _hitEffect;
-    Rigidbody _rb;
+    public Rigidbody _rb;
 
     private void Awake()
     {
@@ -27,15 +26,6 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-    }
-
-    private void Update()
-    {
-        if (_launch)
-        {
-            // You can adjust the velocity here based on the calculated _direction
-            _rb.velocity = _direction * _speed;
-        }
     }
 
     // Method to launch the projectile
@@ -48,18 +38,23 @@ public class Projectile : MonoBehaviour
 
         _lastKnownPlayerPosition = _characterController.transform.position;
         Vector3 playerPosition = _lastKnownPlayerPosition; // Use the last known player position
-        playerPosition.y += _offsetPlayerHeight; 
+        playerPosition.y += _offsetPlayerHeight;
 
         // Calculate the direction to the target
         _direction = (playerPosition - transform.position).normalized;
 
-        _launch = true;
+        // Calculate the initial velocity to achieve the desired arc
+        float launchAngle = 80f; // Adjust this angle as needed for your desired arc
+        float g = Mathf.Abs(Physics.gravity.y); // Magnitude of gravity
+        float initialSpeed = _speed * Mathf.Sqrt((playerPosition - transform.position).magnitude * g / Mathf.Sin(2 * launchAngle * Mathf.Deg2Rad));
+
+        // Apply the initial velocity to the Rigidbody
+        _rb.velocity = _direction * initialSpeed;
     }
 
     // Handle collision with other objects
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
         // Check if the projectile hits an object with a "Player" tag
         if (other.CompareTag("Player"))
         {
@@ -78,7 +73,6 @@ public class Projectile : MonoBehaviour
         }
         else if (other.CompareTag("Dead Zone"))
         {
-            Debug.Log("Else Statement");
             // Instantiate hit effect
             Instantiate(_hitEffect, transform.position, transform.rotation);
 

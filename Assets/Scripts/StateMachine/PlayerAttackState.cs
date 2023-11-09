@@ -12,7 +12,6 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
-        Debug.Log("Entered Attack State");
         InitializeSubState();
         HandleAttack();
     }
@@ -26,14 +25,16 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        Debug.Log("Exited Attack State");
+        if (Ctx.IsAttackPressed)
+        {
+            Ctx.RequireNewAttackPress = true;
+        }
         Ctx.IsAttacking = false;
         Ctx.Animator.SetBool(Ctx.AttackHash, false);
-        Ctx.IsInAttackState = false;
     }
 
     public override void InitializeSubState()
-    {                 
+    {
         if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SetSubState(Factory.Idle());
@@ -57,11 +58,6 @@ public class PlayerAttackState : PlayerBaseState, IRootState
             Ctx.AttackArea.SetActive(Ctx.IsAttacking);
             SwitchState(Factory.Grounded());
         }
-    }
-
-    IEnumerator IAttackResetRoutine()
-    {
-        yield return new WaitForSeconds(Ctx.AttackTimer);
     }
 
     void HandleAttack()

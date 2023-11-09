@@ -10,13 +10,11 @@ public class ThrowerEnemy : MonoBehaviour
     public float _launchInterval = 4.0f;  // Time between projectile launches
     public float _distanceToPlayer = 20;
 
-    PlayerStateMachine _playerStateMachine;
     CharacterController _characterController;
     //Vector3 _lastKnownPlayerPosition; // Store the last known player position
 
     private void Awake()
     {
-        _playerStateMachine = FindObjectOfType<PlayerStateMachine>();
         _characterController = FindObjectOfType<CharacterController>();
     }
 
@@ -58,18 +56,13 @@ public class ThrowerEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !_playerStateMachine.IsAttackPressed)
+        if (other.CompareTag("Player"))
         {
             Vector3 hitDirection = other.transform.position - transform.position;
             hitDirection = hitDirection.normalized;
 
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             playerManager.TakeDamage(_damage, hitDirection);
-        }
-        else if (other.CompareTag("Player") && _playerStateMachine.IsAttackPressed)
-        {
-            Instantiate(_destroyEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
         }
     }
 }

@@ -8,6 +8,7 @@ public class AttackArea : MonoBehaviour
     PlayerStateMachine _playerStateMachine;
 
     public GameObject _checkpointEffect;
+    public GameObject _attackEffect;
 
     private void Start()
     {
@@ -18,13 +19,14 @@ public class AttackArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && _playerStateMachine.IsAttacking)
         {
+            Instantiate(_attackEffect, other.transform.position, other.transform.rotation);
 
+            Destroy(other.gameObject);
         }
         else if (other.CompareTag("Checkpoint") && _playerStateMachine.IsAttacking)
         {
-            Debug.Log("Triggered");
             _playerManager.SetCheckpoint(other.transform.position);
 
             Instantiate(_checkpointEffect, other.transform.position, other.transform.rotation);

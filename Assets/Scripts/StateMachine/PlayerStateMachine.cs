@@ -56,10 +56,10 @@ public class PlayerStateMachine : MonoBehaviour
     // attacking variables
     bool _isAttackPressed;
     bool _isAttacking = false;
-    bool _isInAttackState = false;
+    bool _requireNewAttackPress = false;
     int _attackCount = 0;
-    float _attackTimer = 0f;
-    float _timeToAttack = 0.25f;
+    float _attackTimer = 0;
+    float _timeToAttack = 1.1f;
     GameObject _attackArea = default;
 
     // state variables
@@ -92,7 +92,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAttackPressed { get { return _isAttackPressed; } }
     public bool InRiver { get { return _inRiver; } set { _inRiver = value; } }
     public bool IsAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
-    public bool IsInAttackState { get { return _isInAttackState; } set { _isInAttackState = value; } }
+    public bool RequireNewAttackPress { get { return _requireNewAttackPress; } set { _requireNewAttackPress = value; } }
     public float AttackTimer { get { return _attackTimer; } set { _attackTimer = value; } }
     public float TimeToAttack { get { return _timeToAttack; } set { _timeToAttack = value; } }
     public float Gravity { get { return initialGravity; } }
@@ -247,6 +247,7 @@ public class PlayerStateMachine : MonoBehaviour
     void OnAttack(InputAction.CallbackContext context)
     {
         _isAttackPressed = context.ReadValueAsButton();
+        _requireNewAttackPress = false;
     }
 
     void OnRun(InputAction.CallbackContext context)

@@ -121,5 +121,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
-  _destroyEffect: {fileID: 1721864001751986653, guid: 6559e8b3945ea344992113b2b355e9a6,
-    type: 3}

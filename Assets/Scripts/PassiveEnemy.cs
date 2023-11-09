@@ -5,15 +5,6 @@ using UnityEngine;
 public class PassiveEnemy : MonoBehaviour
 {
     public int _damage = 1;
-    public GameObject _destroyEffect;
-
-    // declare reference variables
-    PlayerStateMachine _playerStateMachine;
-
-    private void Awake()
-    {
-        _playerStateMachine = FindObjectOfType<PlayerStateMachine>();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +27,6 @@ public class PassiveEnemy : MonoBehaviour
 
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             playerManager.TakeDamage(_damage, hitDirection);
-        }
-        else if (other.CompareTag("Attack Area") && _playerStateMachine.IsAttacking)
-        {
-            Instantiate(_destroyEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
         }
     }
 }

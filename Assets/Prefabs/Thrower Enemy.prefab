@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5854859995417003503}
   - component: {fileID: 7784805906583892981}
   - component: {fileID: 2845782612362575752}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thrower Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,4 +126,4 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 2635447579307547757, guid: edd5aa1ff742e484e90a4a54a95402fb,
     type: 3}
   _launchInterval: 4
-  _distanceToPlayer: 200
+  _distanceToPlayer: 20

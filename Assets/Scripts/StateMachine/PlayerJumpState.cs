@@ -59,9 +59,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed && !Ctx.IsInAttackState)
+        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress)
         {
-            Ctx.IsInAttackState = true;
             SwitchState(Factory.Attack());
         }
         /*else if (Ctx.IsJumpPressed)
