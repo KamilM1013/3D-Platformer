@@ -4958,7 +4958,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217019869}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.72349286, y: -0.00000004397586, z: 0.000000020847061, w: 0.69033194}
+  m_LocalRotation: {x: 0.7234928, y: 0.00000004397586, z: -0.000000020847052, w: 0.69033194}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6025,7 +6025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649191695}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6979391, y: 0.000000037527204, z: -0.000000016147707, w: 0.7161572}
+  m_LocalRotation: {x: 0.69793904, y: -1.0017278e-14, z: 5.940213e-15, w: 0.7161572}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6830,6 +6830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thrower Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845782612362575752, guid: 90bef5f0f62572647a6f90504501f8f8,
+        type: 3}
+      propertyPath: _distanceToPlayer
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4397544361712867293, guid: 90bef5f0f62572647a6f90504501f8f8,
         type: 3}

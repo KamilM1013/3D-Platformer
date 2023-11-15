@@ -9,8 +9,8 @@ public class Projectile : MonoBehaviour
     public float _offsetEnemy = 0;  // Offset from the enemy
     public float _offsetPlayerHeight = 1.7f;
 
-    private Vector3 _launchPosition;  // Starting position
-    private Vector3 _direction;      // Direction in which the projectile moves
+    Vector3 _launchPosition;  // Starting position
+    Vector3 _direction;      // Direction in which the projectile moves
 
     CharacterController _characterController;
     Vector3 _lastKnownPlayerPosition; // Store the last known player position
@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         _direction = (playerPosition - transform.position).normalized;
 
         // Calculate the initial velocity to achieve the desired arc
-        float launchAngle = 80f; // Adjust this angle as needed for your desired arc
+        float launchAngle = 45f; // Adjust this angle as needed for your desired arc
         float g = Mathf.Abs(Physics.gravity.y); // Magnitude of gravity
         float initialSpeed = _speed * Mathf.Sqrt((playerPosition - transform.position).magnitude * g / Mathf.Sin(2 * launchAngle * Mathf.Deg2Rad));
 

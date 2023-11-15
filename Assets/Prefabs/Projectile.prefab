@@ -146,10 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a23e3236ed6ac4f9b3d4780712803e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1.5
+  _speed: 1.75
   _damage: 1
   _offsetEnemy: 0
-  _offsetPlayerHeight: 1.7
+  _offsetPlayerHeight: 2
   _hitEffect: {fileID: 1721864001751986653, guid: 6559e8b3945ea344992113b2b355e9a6,
     type: 3}
   _rb: {fileID: 3049288539287575638}

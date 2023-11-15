@@ -176,6 +176,7 @@ public class PlayerManager : MonoBehaviour
         _characterController.transform.position = _checkpoint;
         _characterController.enabled = true;
         _currentHealth = _maxHealth;
+        _playerStateMachine.RunMultiplier = 4.0f;
 
         _invincibilityCounter = _invincibilityLength;
         _playerRenderer.enabled = false;
