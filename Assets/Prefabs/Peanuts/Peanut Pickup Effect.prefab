@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8041851175302427927}
   - component: {fileID: 4255641416480932943}
   m_Layer: 0
-  m_Name: Acorn Pickup Effect
+  m_Name: Peanut Pickup Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

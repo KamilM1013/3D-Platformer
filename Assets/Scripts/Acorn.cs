@@ -25,7 +25,7 @@ public class Acorn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindAnyObjectByType<GameManager>().AddAcorns(_value);
+            FindAnyObjectByType<GameManager>().AddPeanuts(_value);
 
             Instantiate(_pickupEffect, transform.position, transform.rotation);
 

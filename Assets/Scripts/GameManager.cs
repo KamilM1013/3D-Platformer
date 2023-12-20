@@ -7,8 +7,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
 
-    public int currentAcorns;
-    public TextMeshProUGUI acornsText;
+    public int _currentPeanuts;
+    public TextMeshProUGUI _peanutsText;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void AddAcorns(int acornsToAdd)
+    public void AddPeanuts(int peanutsToAdd)
     {
-        currentAcorns += acornsToAdd;
-        acornsText.text = "Acorns: " + currentAcorns;
+        _currentPeanuts += peanutsToAdd;
+        _peanutsText.text = "Peanuts: " + _currentPeanuts;
     }
 }
