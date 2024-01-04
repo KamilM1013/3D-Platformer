@@ -19,7 +19,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -29,7 +29,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 9a44f97f0c7656a4ab27a4c2f0fcb041, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2042659865447f648b70bc5906d88606, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,6 +46,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -55,11 +56,11 @@ Material:
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 10
-    - _Metallic: 0.1
+    - _Metallic: 0.056
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.567
     - _SrcBlend: 1
     - _Surface: 1
     - _TextureScale: 10
@@ -72,7 +73,7 @@ Material:
     m_Colors:
     - _NormalSpeed: {r: 0, g: 0.5, b: 0, a: 0}
     - _RipplesSpeed: {r: 0, g: 0.4, b: 0, a: 0}
-    - _TextureColor: {r: 0.13679248, g: 0.76642644, b: 1, a: 1}
+    - _TextureColor: {r: 0.028426038, g: 0.07818743, b: 0.23839766, a: 1}
     - _TextureSpeed: {r: 0, g: 0.6, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5020582366674975518
