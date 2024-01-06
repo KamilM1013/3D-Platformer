@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5195620198972185868}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.257, y: 0.551, z: 3.369}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75,8 +75,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.53, y: 0.5, z: 0.38}
+  m_Center: {x: -0.15, y: 0.15, z: 0}
 --- !u!114 &8585494932173176104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ PrefabInstance:
     - target: {fileID: 1200623345790015002, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9246391
       objectReference: {fileID: 0}
     - target: {fileID: 1200623345790015002, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 1200623345790015002, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.38084456
       objectReference: {fileID: 0}
     - target: {fileID: 1200623345790015002, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
@@ -148,12 +148,12 @@ PrefabInstance:
     - target: {fileID: 1200623345790015002, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 44.772
       objectReference: {fileID: 0}
     - target: {fileID: 1201932740413081332, guid: 0969280e29ecdde4492a400eeeffda0f,
         type: 3}
       propertyPath: m_Name
-      value: Acorn
+      value: Peanut
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

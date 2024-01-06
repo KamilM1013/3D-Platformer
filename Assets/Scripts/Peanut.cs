@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Acorn : MonoBehaviour
+public class Peanut : MonoBehaviour
 {
 
     public int _value;
