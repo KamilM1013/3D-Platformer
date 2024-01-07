@@ -45,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages:
-    - 0.25
+    - 0.3458204
     - 0.125
     - 0.01
     globalScale: 1
