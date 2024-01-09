@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1479854163058701423}
   - component: {fileID: 1080167488167146173}
   m_Layer: 0
-  m_Name: Trap Platform
+  m_Name: Trap Platform 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6033051540976879204}
-  m_Mesh: {fileID: 2958575144402606513, guid: b029eb7130747c7468d0f27a35ddc585, type: 3}
+  m_Mesh: {fileID: 5313808117790218540, guid: 4a9f16f8acbaf55439cda7a1d1c37693, type: 3}
 --- !u!23 &6841783846747913956
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6d1b4db39d20074aad3254adcaeb841, type: 2}
+  - {fileID: 2100000, guid: 9f2e5c9f032b78144a29321def717a8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
