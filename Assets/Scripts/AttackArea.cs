@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AttackArea : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class AttackArea : MonoBehaviour
         else if (other.CompareTag("Checkpoint") && _playerStateMachine.IsAttacking)
         {
             _playerManager.SetCheckpoint(other.transform.position);
+
+            _playerManager.TriggerCheckpointUI();
 
             Instantiate(_checkpointEffect, other.transform.position, other.transform.rotation);
 

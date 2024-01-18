@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float _speed = 1.75f;     // Projectile speed
     public int _damage = 1;         // Damage dealt by the projectile
-    public float _offsetEnemy = 0;  // Offset from the enemy
+    public float _offsetEnemy = 2;  // Offset from the enemy
     public float _offsetPlayerHeight = 1.7f;
 
     Vector3 _launchPosition;  // Starting position
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
     {
         // Set the starting position
         _launchPosition = transform.position;
-        _launchPosition.x += _offsetEnemy;
+        _launchPosition.y += _offsetEnemy;
         transform.position = _launchPosition;
 
         _lastKnownPlayerPosition = _characterController.transform.position;
@@ -71,7 +71,7 @@ public class Projectile : MonoBehaviour
             // Destroy the projectile when it hits the player
             Destroy(gameObject);
         }
-        else if (other.CompareTag("Dead Zone"))
+        else if (other.CompareTag("Terrain"))
         {
             // Instantiate hit effect
             Instantiate(_hitEffect, transform.position, transform.rotation);

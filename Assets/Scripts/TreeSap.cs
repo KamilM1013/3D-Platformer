@@ -18,7 +18,7 @@ public class TreeSap : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerStateMachine playerStateMachine = other.GetComponent<PlayerStateMachine>();
-            playerStateMachine.RunMultiplier = 4.0f;
+            playerStateMachine.RunMultiplier = 5.0f;
         }
     }
 }

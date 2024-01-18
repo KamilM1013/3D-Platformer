@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     Animator _animator;
     public Renderer _playerRenderer;
     public Image blackScreen;
+    public GameObject _checkpointText;
+    Snake[] _snakes;
 
     // health variables
     public int _maxHealth;
@@ -46,6 +48,7 @@ public class PlayerManager : MonoBehaviour
         _playerStateMachine = GetComponent<PlayerStateMachine>();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _snakes = FindObjectsOfType<Snake>();
 
         _checkpoint = _characterController.transform.position;
     }
@@ -165,6 +168,12 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(_waitForFade);
 
+        // Reset snake alert states
+        foreach (Snake snake in _snakes)
+        {
+            snake.ResetAlertState();
+        }
+
         // Now, start fading out
         _isFadeToBlack = false;
         _isFadeFromBlack = true;
@@ -176,11 +185,12 @@ public class PlayerManager : MonoBehaviour
         _characterController.transform.position = _checkpoint;
         _characterController.enabled = true;
         _currentHealth = _maxHealth;
-        _playerStateMachine.RunMultiplier = 4.0f;
+        _playerStateMachine.RunMultiplier = 5.0f;
 
         _invincibilityCounter = _invincibilityLength;
         _playerRenderer.enabled = false;
         _flashCounter = _flashLength;
+
     }
 
     public void AddLife(int lifeAmount)
@@ -191,5 +201,17 @@ public class PlayerManager : MonoBehaviour
     public void SetCheckpoint(Vector3 newCheckpoint)
     {
         _checkpoint = newCheckpoint;
+    }
+
+    public void TriggerCheckpointUI()
+    {
+        StartCoroutine(FlashCheckpointUI()); 
+    }
+
+    private IEnumerator FlashCheckpointUI()
+    {
+        _checkpointText.SetActive(true);
+        yield return new WaitForSeconds(3);
+        _checkpointText.SetActive(false);
     }
 }

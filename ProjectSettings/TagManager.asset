@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Attack Area
   - Checkpoint
+  - Terrain
   layers:
   - Default
   - TransparentFX
