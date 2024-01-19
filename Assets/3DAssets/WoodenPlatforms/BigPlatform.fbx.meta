@@ -10,30 +10,15 @@ ModelImporter:
       name: BigPlatform
     second: {fileID: 2100000, guid: 203d8ae77073389498361cb9da151f8b, type: 2}
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BigPlatformLOD0
-    second: {fileID: 2100000, guid: a2bc40056f19ae441954b2bdd8fb8315, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: BigPlatformLOD0_Diffuse
-    second: {fileID: 2800000, guid: fa92c6fef5c070b43bf971fac504cbe3, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: BigPlatformLOD0_Normals
-    second: {fileID: 2800000, guid: 0cf9c5e5ba49cd448844f8c07f3805f3, type: 3}
-  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: WoodenPlatform_Diffuse_4k
-    second: {fileID: 2800000, guid: 40dee6ad10baef441adf5727ad73fbd2, type: 3}
+    second: {fileID: 2800000, guid: a87d86ab538bc3e44800b3c0ccd74d74, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: WoodenPlatform_Normals_4k
-    second: {fileID: 2800000, guid: 1852a6238ac0d724d95d0dba2afd6677, type: 3}
+    second: {fileID: 2800000, guid: 778b85cd33d825548b253df234ad8cbb, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -65,10 +50,9 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages:
-    - 0.8019484
-    - 0.60473686
-    - 0.40235704
-    - 0.03937037
+    - 0.49831837
+    - 0.30375972
+    - 0.09851337
     globalScale: 1
     meshCompression: 0
     addColliders: 0

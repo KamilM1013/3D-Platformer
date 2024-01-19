@@ -31,8 +31,6 @@ public class PlayerAttackState : PlayerBaseState, IRootState
         }
         Ctx.IsAttacking = false;
         Ctx.Animator.SetBool(Ctx.AttackHash, false);
-
-        Ctx.AttackVFXOff();
     }
 
     public override void InitializeSubState()
@@ -67,7 +65,7 @@ public class PlayerAttackState : PlayerBaseState, IRootState
         Ctx.IsAttacking = true;
         Ctx.AttackArea.SetActive(Ctx.IsAttacking);
         Ctx.Animator.SetBool(Ctx.AttackHash, true);
-        Ctx.AttackVFXOn();
+        Ctx.AttackParticleSystem.Play();
     }
 
     public void HandleGravity()

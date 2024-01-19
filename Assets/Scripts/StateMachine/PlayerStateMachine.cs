@@ -61,12 +61,8 @@ public class PlayerStateMachine : MonoBehaviour
     float _attackTimer = 0;
     float _timeToAttack = 1.1f;
     GameObject _attackArea = default;
-    Vector3 _offset;
-    Vector3 _spawnPosition;
-
-    // attacking effect
-    public GameObject _attackEffectPrefab;
-    private GameObject _attackEffectInstance;
+    GameObject _attackEffectPrefab = default;
+    ParticleSystem _attackParticleSystem;
 
     // state variables
     PlayerBaseState _currentState;
@@ -81,6 +77,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public GameObject AttackArea { get { return _attackArea; } }
+    public ParticleSystem AttackParticleSystem { get { return _attackParticleSystem; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int AttackCount { get { return _attackCount; } set { _attackCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
@@ -171,6 +168,8 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         _attackArea = transform.GetChild(0).gameObject;
+        _attackEffectPrefab = transform.GetChild(1).gameObject;
+        _attackParticleSystem = _attackEffectPrefab.GetComponent<ParticleSystem>();
         _characterController.Move(_appliedMovement * Time.deltaTime);
     }
 
@@ -269,34 +268,6 @@ public class PlayerStateMachine : MonoBehaviour
     void OnDisable()
     {
         _playerInput.CharacterControls.Disable();
-    }
-
-    public void AttackVFXOn()
-    {
-        _offset = new Vector3(0, 0.5f, 0); // Adjust yOffset to your desired value
-        _spawnPosition = transform.position + _offset;
-
-        // Instantiate the effect if it hasn't been instantiated yet
-        if (_attackEffectInstance == null)
-        {
-            _attackEffectInstance = Instantiate(_attackEffectPrefab, _spawnPosition, Quaternion.Euler(90f, 0f, 0f));
-        }
-        else
-        {
-            // Reposition the existing effect
-            _attackEffectInstance.transform.position = _spawnPosition;
-            _attackEffectInstance.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-            _attackEffectInstance.SetActive(true);
-        }
-    }
-
-    public void AttackVFXOff()
-    {
-        // Deactivate the effect if it exists
-        if (_attackEffectInstance != null)
-        {
-            _attackEffectInstance.SetActive(false);
-        }
     }
 
     /*public void Knockback(Vector3 direction)
