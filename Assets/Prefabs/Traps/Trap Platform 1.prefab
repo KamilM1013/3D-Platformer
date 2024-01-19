@@ -170,3 +170,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fallDelay: 1.5
   _resetDelay: 6
+  _splashEffectPrefab: {fileID: 5137123306192418792, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+    type: 3}

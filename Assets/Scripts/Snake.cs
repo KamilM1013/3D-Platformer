@@ -109,8 +109,12 @@ public class Snake : MonoBehaviour
 
     public void ResetAlertState()
     {
-        _animator.SetBool(_isAlertHash, false);
-        _animator.SetBool(_isAttackingHash, false);
-        _isAlert = false;
+        if (_animator != null)
+        {
+            _animator.SetBool(_isAlertHash, false);
+            _animator.SetBool(_isAttackingHash, false);
+            _isAlert = false;
+        }
     }
+
 }

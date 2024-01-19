@@ -9,7 +9,7 @@ public class AttackArea : MonoBehaviour
     PlayerManager _playerManager;
     PlayerStateMachine _playerStateMachine;
 
-    public GameObject _checkpointEffect;
+    public GameObject _crateEffect;
     public GameObject _attackEffect;
 
     private List<GameObject> _triggeredCheckpoints = new List<GameObject>();
@@ -37,7 +37,7 @@ public class AttackArea : MonoBehaviour
             _playerManager.SetCheckpoint(other.transform.position);
             _playerManager.TriggerCheckpointUI();
 
-            Instantiate(_checkpointEffect, other.transform.position, other.transform.rotation);
+            Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);
 
@@ -48,7 +48,7 @@ public class AttackArea : MonoBehaviour
         {
             _triggeredCrates.Add(other.gameObject); // Mark crate as triggered
 
-            Instantiate(_checkpointEffect, other.transform.position, other.transform.rotation);
+            Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);
 

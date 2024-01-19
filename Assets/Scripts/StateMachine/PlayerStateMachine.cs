@@ -61,6 +61,12 @@ public class PlayerStateMachine : MonoBehaviour
     float _attackTimer = 0;
     float _timeToAttack = 1.1f;
     GameObject _attackArea = default;
+    Vector3 _offset;
+    Vector3 _spawnPosition;
+
+    // attacking effect
+    public GameObject _attackEffectPrefab;
+    private GameObject _attackEffectInstance;
 
     // state variables
     PlayerBaseState _currentState;
@@ -263,6 +269,34 @@ public class PlayerStateMachine : MonoBehaviour
     void OnDisable()
     {
         _playerInput.CharacterControls.Disable();
+    }
+
+    public void AttackVFXOn()
+    {
+        _offset = new Vector3(0, 0.5f, 0); // Adjust yOffset to your desired value
+        _spawnPosition = transform.position + _offset;
+
+        // Instantiate the effect if it hasn't been instantiated yet
+        if (_attackEffectInstance == null)
+        {
+            _attackEffectInstance = Instantiate(_attackEffectPrefab, _spawnPosition, Quaternion.Euler(90f, 0f, 0f));
+        }
+        else
+        {
+            // Reposition the existing effect
+            _attackEffectInstance.transform.position = _spawnPosition;
+            _attackEffectInstance.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+            _attackEffectInstance.SetActive(true);
+        }
+    }
+
+    public void AttackVFXOff()
+    {
+        // Deactivate the effect if it exists
+        if (_attackEffectInstance != null)
+        {
+            _attackEffectInstance.SetActive(false);
+        }
     }
 
     /*public void Knockback(Vector3 direction)

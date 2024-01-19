@@ -30,6 +30,18 @@ public class PlayerManager : MonoBehaviour
     Vector3 _checkpoint;
     public float _respawnLength;
 
+    // death effects
+    public GameObject _deathEffectPrefab;
+    private GameObject _deathEffectInstance;
+
+    public GameObject _deathEffectPrefab2;
+    private GameObject _deathEffectInstance2;
+
+    public GameObject _waterEffectPrefab;
+    private GameObject _waterEffectInstance;
+
+    bool _inWater = false;
+
     int _isDeadHash;
 
     // fade variables
@@ -138,6 +150,46 @@ public class PlayerManager : MonoBehaviour
                 if (_currentHealth <= 0)
                 {
                     _animator.SetTrigger(_isDeadHash);
+
+                    // Instantiate the effect if it hasn't been instantiated yet
+                    if (_deathEffectInstance == null)
+                    {
+                        _deathEffectInstance = Instantiate(_deathEffectPrefab, transform.position, transform.rotation);
+                    }
+                    else
+                    {
+                        // Reposition the existing effect
+                        _deathEffectInstance.transform.position = transform.position;
+                        _deathEffectInstance.SetActive(true);
+                    }
+
+                    Vector3 offset = new Vector3(0, 3f, 0); // Adjust yOffset to your desired value
+                    Vector3 spawnPosition = transform.position + offset;
+
+                    // Instantiate the effect if it hasn't been instantiated yet
+                    if (_deathEffectInstance2 == null)
+                    {
+
+                        _deathEffectInstance2 = Instantiate(_deathEffectPrefab2, spawnPosition, transform.rotation);
+                    }
+                    else
+                    {
+                        // Reposition the existing effect
+                        _deathEffectInstance2.transform.position = spawnPosition;
+                        _deathEffectInstance2.SetActive(true);
+                    }
+
+                    if (_waterEffectInstance == null && _inWater == true)
+                    {
+                        _waterEffectInstance = Instantiate(_waterEffectPrefab, transform.position, transform.rotation);
+                    }
+                    else if (_waterEffectInstance != null && _inWater == true)
+                    {
+                        // Reposition the existing effect
+                        _waterEffectInstance.transform.position = transform.position;
+                        _waterEffectInstance.SetActive(true);
+                    }
+
                     Respawn();
                 }
                 else
@@ -168,12 +220,6 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(_waitForFade);
 
-        // Reset snake alert states
-        foreach (Snake snake in _snakes)
-        {
-            snake.ResetAlertState();
-        }
-
         // Now, start fading out
         _isFadeToBlack = false;
         _isFadeFromBlack = true;
@@ -191,6 +237,26 @@ public class PlayerManager : MonoBehaviour
         _playerRenderer.enabled = false;
         _flashCounter = _flashLength;
 
+        // Deactivate the effect if it exists
+        if (_deathEffectInstance != null)
+        {
+            _deathEffectInstance.SetActive(false);
+        }
+        else if (_deathEffectInstance2 != null)
+        {
+            _deathEffectInstance2.SetActive(false);
+        }
+        else if (_waterEffectInstance != null)
+        {
+            _waterEffectInstance.SetActive(false);
+            _inWater = false;
+        }
+
+        // Reset snake alert states
+        foreach (Snake snake in _snakes)
+        {
+            snake.ResetAlertState();
+        }
     }
 
     public void AddLife(int lifeAmount)
@@ -213,5 +279,13 @@ public class PlayerManager : MonoBehaviour
         _checkpointText.SetActive(true);
         yield return new WaitForSeconds(3);
         _checkpointText.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            _inWater = true;
+        }
     }
 }
