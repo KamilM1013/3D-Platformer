@@ -12,6 +12,8 @@ TagManager:
   - Crate
   - FxTemporaire
   - Water
+  - Lift
+  - QuestionCrate
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,7 @@ public class Lift : MonoBehaviour
 {
     // ref variables
     Animator _animator;
+    public Collider _collider;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +24,17 @@ public class Lift : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Sensed");
             _animator.SetTrigger("AnimTrigger");
+            _collider.enabled = false;
+
+            StartCoroutine(WaitForAnim());
         }
+    }
+
+    IEnumerator WaitForAnim()
+    {
+        yield return new WaitForSeconds(12);
+        _animator.SetTrigger("AnimReverseTrigger");
+        _collider.enabled = true;
     }
 }

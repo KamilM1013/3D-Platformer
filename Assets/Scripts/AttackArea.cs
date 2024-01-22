@@ -11,6 +11,8 @@ public class AttackArea : MonoBehaviour
 
     public GameObject _crateEffect;
     public GameObject _attackEffect;
+    public GameObject _fireworksEffect;
+    public GameObject _fireworksEffect2;
 
     private List<GameObject> _triggeredCheckpoints = new List<GameObject>();
     private List<GameObject> _triggeredCrates = new List<GameObject>();
@@ -43,7 +45,6 @@ public class AttackArea : MonoBehaviour
 
             FindAnyObjectByType<GameManager>().AddPeanuts(8);
         }
-
         else if (other.CompareTag("Crate") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
         {
             _triggeredCrates.Add(other.gameObject); // Mark crate as triggered
@@ -53,6 +54,15 @@ public class AttackArea : MonoBehaviour
             Destroy(other.gameObject);
 
             FindAnyObjectByType<GameManager>().AddPeanuts(1);
+        }
+        else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking)
+        {
+
+            Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
+            Instantiate(_fireworksEffect, other.transform.position, other.transform.rotation);
+            Instantiate(_fireworksEffect2, other.transform.position, other.transform.rotation);
+
+            Destroy(other.gameObject);
         }
     }
 }

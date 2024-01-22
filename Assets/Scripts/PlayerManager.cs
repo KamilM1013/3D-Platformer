@@ -218,6 +218,11 @@ public class PlayerManager : MonoBehaviour
 
         _isFadeToBlack = true;
 
+        yield return new WaitForSeconds(0.5f);
+        _characterController.enabled = false;
+        _characterController.transform.position = _checkpoint;
+        _characterController.enabled = true;
+
         yield return new WaitForSeconds(_waitForFade);
 
         // Now, start fading out
@@ -227,9 +232,9 @@ public class PlayerManager : MonoBehaviour
         _isRespawning = false;
 
         // Move the character during screen fading
-        _characterController.enabled = false;
-        _characterController.transform.position = _checkpoint;
-        _characterController.enabled = true;
+        //_characterController.enabled = false;
+        //_characterController.transform.position = _checkpoint;
+        //_characterController.enabled = true;
         _currentHealth = _maxHealth;
         _playerStateMachine.RunMultiplier = 5.0f;
 
@@ -286,6 +291,33 @@ public class PlayerManager : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             _inWater = true;
+        }
+        else if (other.CompareTag("Lift"))
+        {
+            transform.parent = other.transform;
+            _characterController.enabled = false;
+
+            StartCoroutine(WaitForAnim(other));
+        }
+    }
+
+    IEnumerator WaitForAnim(Collider other)
+    {
+        yield return new WaitForSeconds(8);
+        _characterController.enabled = true;
+        transform.parent = null;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            _inWater = false;
+        }
+        else if (other.CompareTag("Lift"))
+        {
+            transform.parent = null;
+            _characterController.enabled = true;
         }
     }
 }
