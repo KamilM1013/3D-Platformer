@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Dead Zone
+  - Enemy
+  - Attack Area
+  - Checkpoint
+  - Terrain
+  - Crate
+  - FxTemporaire
+  - Water
+  - Lift
+  - QuestionCrate
   layers:
   - Default
   - TransparentFX
@@ -13,8 +23,8 @@ TagManager:
   - UI
   - Player
   - Camera
-  - 
-  - 
+  - Attack Area
+  - Enemy
   - 
   - 
   - 
