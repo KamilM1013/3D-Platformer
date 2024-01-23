@@ -9,6 +9,7 @@ public class AttackArea : MonoBehaviour
     PlayerManager _playerManager;
     PlayerStateMachine _playerStateMachine;
     AudioManager _audioManager;
+    GameManager _gameManager;
 
     public GameObject _crateEffect;
     public GameObject _attackEffect;
@@ -21,6 +22,7 @@ public class AttackArea : MonoBehaviour
     private void Awake()
     {
         _audioManager = FindObjectOfType<AudioManager>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -54,7 +56,8 @@ public class AttackArea : MonoBehaviour
             _audioManager.Play("HitCrate");
             _audioManager.Play("Checkpoint");
 
-            FindAnyObjectByType<GameManager>().AddPeanuts(8);
+            _gameManager.AddPeanuts(8);
+            _gameManager.AddCrates(1);
         }
         else if (other.CompareTag("Crate") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
         {
@@ -66,7 +69,8 @@ public class AttackArea : MonoBehaviour
 
             _audioManager.Play("HitCrate");
 
-            FindAnyObjectByType<GameManager>().AddPeanuts(1);
+            _gameManager.AddPeanuts(1);
+            _gameManager.AddCrates(1);
         }
         else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking)
         {
@@ -79,6 +83,8 @@ public class AttackArea : MonoBehaviour
 
             _audioManager.Play("HitCrate");
             _audioManager.Play("FireWorks");
+
+            _gameManager.AddCrates(1);
         }
     }
 }
