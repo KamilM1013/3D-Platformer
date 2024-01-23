@@ -6,11 +6,15 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    AudioManager _audioManager;
 
     public int _currentPeanuts;
+    public int _currentCrates;
     public TextMeshProUGUI _peanutsText;
+    public TextMeshProUGUI _cratesText;
+
     public Image _peanutImage;
-    AudioManager _audioManager;
+    public Image _crateImage;
 
     private void Awake()
     {
@@ -29,12 +33,18 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void AddCrates(int cratesToAdd)
+    {
+        _currentCrates += cratesToAdd;
+        _cratesText.text = _currentCrates.ToString();
+    }
+
     public void AddPeanuts(int peanutsToAdd)
     {
         _audioManager.Play("Collect");
 
         _currentPeanuts += peanutsToAdd;
-        _peanutsText.text = "" + _currentPeanuts;
+        _peanutsText.text = _currentPeanuts.ToString();
 
         // Add a scaling effect
         LeanTween.scale(_peanutsText.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.2f)
