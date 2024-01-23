@@ -7,6 +7,7 @@ public class Cannon : MonoBehaviour
 {
     // ref variables
     Animator _animator;
+    AudioManager _audioManager;
     public GameObject _destroyEffect;
     public GameObject _projectilePrefab;
     public Transform _player;
@@ -27,6 +28,7 @@ public class Cannon : MonoBehaviour
     {
         _characterController = FindObjectOfType<CharacterController>();
         _animator = GetComponent<Animator>();
+        _audioManager = FindObjectOfType<AudioManager>();
 
         // set the parameter hash references
         _isAttackingHash = Animator.StringToHash("Shoot");
@@ -65,6 +67,8 @@ public class Cannon : MonoBehaviour
         if (_projectilePrefab != null && _characterController != null)
         {
             _animator.SetTrigger("Shoot");
+
+            _audioManager.Play("Cannon");
 
             GameObject newProjectile = Instantiate(_projectilePrefab, transform.position, transform.rotation);
 

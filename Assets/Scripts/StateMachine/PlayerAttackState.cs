@@ -14,6 +14,8 @@ public class PlayerAttackState : PlayerBaseState, IRootState
     {
         InitializeSubState();
         HandleAttack();
+
+        Ctx.AudioManager.Play("Swoosh");
     }
 
     public override void UpdateState()

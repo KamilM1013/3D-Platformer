@@ -11,6 +11,8 @@ public class PlayerWalkState : PlayerBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+
+        Ctx.AudioManager.Play("Walk");
     }
 
     public override void UpdateState()
@@ -21,8 +23,8 @@ public class PlayerWalkState : PlayerBaseState
     }
 
     public override void ExitState() 
-    { 
-    
+    {
+        Ctx.AudioManager.Stop("Walk");
     }
 
     public override void InitializeSubState()

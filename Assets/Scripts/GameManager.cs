@@ -10,11 +10,17 @@ public class GameManager : MonoBehaviour
     public int _currentPeanuts;
     public TextMeshProUGUI _peanutsText;
     public Image _peanutImage;
+    AudioManager _audioManager;
+
+    private void Awake()
+    {
+        _audioManager = FindObjectOfType<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _audioManager.Play("Music");
     }
 
     // Update is called once per frame
@@ -25,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     public void AddPeanuts(int peanutsToAdd)
     {
+        _audioManager.Play("Collect");
+
         _currentPeanuts += peanutsToAdd;
         _peanutsText.text = "" + _currentPeanuts;
 

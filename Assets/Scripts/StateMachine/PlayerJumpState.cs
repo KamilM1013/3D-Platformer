@@ -87,6 +87,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
         Ctx.CurrentMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
+
+        Ctx.AudioManager.Play("Jump");
     }
 
     public void HandleGravity()

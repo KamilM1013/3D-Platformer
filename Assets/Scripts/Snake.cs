@@ -6,6 +6,7 @@ public class Snake : MonoBehaviour
 
     // ref variables
     Animator _animator;
+    AudioManager _audioManager;
     public Transform _player;
 
     public int _damage = 1;
@@ -24,6 +25,7 @@ public class Snake : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _audioManager = FindObjectOfType<AudioManager>();
 
         // set the parameter hash references
         _isAlertHash = Animator.StringToHash("isAlert");
@@ -52,6 +54,8 @@ public class Snake : MonoBehaviour
     {
         _animator.SetBool(_isAlertHash, true);
         _isAlert = true;
+
+        _audioManager.Play("SnakeHiss");
     }
 
     // Called when the player exits the alert collider
@@ -79,6 +83,8 @@ public class Snake : MonoBehaviour
     IEnumerator HandleAttack(Collider other)
     {
         yield return new WaitForSeconds(1.1f);
+
+        _audioManager.Play("SnakeBite");
 
         Vector3 hitDirection = other.transform.position - transform.position;
         hitDirection = hitDirection.normalized;

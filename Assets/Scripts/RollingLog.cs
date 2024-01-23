@@ -6,8 +6,14 @@ public class RollingLog : MonoBehaviour
 {
     // ref variables
     Animator _animator;
+    AudioManager _audioManager;
     public GameObject _log;
     public Collider _collider;
+
+    private void Awake()
+    {
+        _audioManager = FindObjectOfType<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,7 @@ public class RollingLog : MonoBehaviour
         {
             _collider.enabled = false;
 
+            _audioManager.Play("Log");
             _animator.SetTrigger("AnimTrigger");
             Destroy(_log, 4f);
         }

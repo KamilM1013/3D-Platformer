@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    AudioManager _audioManager;
+
     public float _speed = 1.75f;     // Projectile speed
     public int _damage = 1;         // Damage dealt by the projectile
     public float _offsetEnemy = 2;  // Offset from the enemy
@@ -21,6 +23,7 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         _characterController = FindObjectOfType<CharacterController>();
+        _audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
@@ -70,6 +73,8 @@ public class Projectile : MonoBehaviour
 
             // Destroy the projectile when it hits the player
             Destroy(gameObject);
+
+            _audioManager.Play("ProjectileHit");
         }
         else if (other.CompareTag("Terrain"))
         {
@@ -78,6 +83,8 @@ public class Projectile : MonoBehaviour
 
             // Destroy the projectile when it hits anything other than the player
             Destroy(gameObject);
+
+            _audioManager.Play("ProjectileHit");
         }
     }
 }

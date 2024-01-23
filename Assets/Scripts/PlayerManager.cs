@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     PlayerStateMachine _playerStateMachine;
     CharacterController _characterController;
     Animator _animator;
+    AudioManager _audioManager;
     public Renderer _playerRenderer;
     public Image blackScreen;
     public GameObject _checkpointText;
@@ -60,6 +61,7 @@ public class PlayerManager : MonoBehaviour
         _playerStateMachine = GetComponent<PlayerStateMachine>();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _audioManager = FindObjectOfType<AudioManager>();
         _snakes = FindObjectsOfType<Snake>();
 
         _checkpoint = _characterController.transform.position;
@@ -189,6 +191,10 @@ public class PlayerManager : MonoBehaviour
                         _waterEffectInstance.transform.position = transform.position;
                         _waterEffectInstance.SetActive(true);
                     }
+                    _audioManager.Stop("Music");
+
+                    _audioManager.Play("DeathThud");
+                    _audioManager.Play("Death");
 
                     Respawn();
                 }
@@ -256,6 +262,8 @@ public class PlayerManager : MonoBehaviour
             _waterEffectInstance.SetActive(false);
             _inWater = false;
         }
+
+        _audioManager.Play("Music");
 
         // Reset snake alert states
         foreach (Snake snake in _snakes)

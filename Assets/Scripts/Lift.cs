@@ -6,7 +6,14 @@ public class Lift : MonoBehaviour
 {
     // ref variables
     Animator _animator;
+    AudioManager _audioManager;
     public Collider _collider;
+
+
+    private void Awake()
+    {
+        _animator = FindObjectOfType<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +33,8 @@ public class Lift : MonoBehaviour
         {
             _animator.SetTrigger("AnimTrigger");
             _collider.enabled = false;
+
+            _audioManager.Play("Zipline");
 
             StartCoroutine(WaitForAnim());
         }

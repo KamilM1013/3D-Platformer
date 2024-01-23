@@ -12,6 +12,7 @@ public class PlayerStateMachine : MonoBehaviour
     Animator _animator;
     PlayerInput _playerInput;
     PlayerManager _playerManager;
+    AudioManager _audioManager;
 
     // variables to store optimized setter/getter parameter IDs
     int _isWalkingHash;
@@ -78,6 +79,8 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public GameObject AttackArea { get { return _attackArea; } }
     public ParticleSystem AttackParticleSystem { get { return _attackParticleSystem; } }
+
+    public AudioManager AudioManager { get { return _audioManager; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int AttackCount { get { return _attackCount; } set { _attackCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
@@ -115,6 +118,7 @@ public class PlayerStateMachine : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _playerManager = GetComponent<PlayerManager>();
+        _audioManager = FindObjectOfType<AudioManager>();
         Transform childTransform = transform.Find("Attack Range");
 
         // setup state

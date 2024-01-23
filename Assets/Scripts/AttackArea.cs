@@ -8,6 +8,7 @@ public class AttackArea : MonoBehaviour
 {
     PlayerManager _playerManager;
     PlayerStateMachine _playerStateMachine;
+    AudioManager _audioManager;
 
     public GameObject _crateEffect;
     public GameObject _attackEffect;
@@ -16,6 +17,11 @@ public class AttackArea : MonoBehaviour
 
     private List<GameObject> _triggeredCheckpoints = new List<GameObject>();
     private List<GameObject> _triggeredCrates = new List<GameObject>();
+
+    private void Awake()
+    {
+        _audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void Start()
     {
@@ -31,6 +37,8 @@ public class AttackArea : MonoBehaviour
             Instantiate(_attackEffect, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);
+
+            _audioManager.Play("HitEnemy");
         }
         else if (other.CompareTag("Checkpoint") && _playerStateMachine.IsAttacking && !_triggeredCheckpoints.Contains(other.gameObject))
         {
@@ -43,6 +51,9 @@ public class AttackArea : MonoBehaviour
 
             Destroy(other.gameObject);
 
+            _audioManager.Play("HitCrate");
+            _audioManager.Play("Checkpoint");
+
             FindAnyObjectByType<GameManager>().AddPeanuts(8);
         }
         else if (other.CompareTag("Crate") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
@@ -52,6 +63,8 @@ public class AttackArea : MonoBehaviour
             Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);
+
+            _audioManager.Play("HitCrate");
 
             FindAnyObjectByType<GameManager>().AddPeanuts(1);
         }
@@ -63,6 +76,9 @@ public class AttackArea : MonoBehaviour
             Instantiate(_fireworksEffect2, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);
+
+            _audioManager.Play("HitCrate");
+            _audioManager.Play("FireWorks");
         }
     }
 }
