@@ -74,7 +74,6 @@ public class AttackArea : MonoBehaviour
         }
         else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking)
         {
-
             Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
             Instantiate(_fireworksEffect, other.transform.position, other.transform.rotation);
             Instantiate(_fireworksEffect2, other.transform.position, other.transform.rotation);
@@ -84,7 +83,17 @@ public class AttackArea : MonoBehaviour
             _audioManager.Play("HitCrate");
             _audioManager.Play("FireWorks");
 
-            _gameManager.AddCrates(1);
+            _gameManager.StopTimer();
+        }
+        else if (other.CompareTag("TimerCrate") && _playerStateMachine.IsAttacking)
+        {
+            Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
+
+            Destroy(other.gameObject);
+
+            _gameManager.AddPeanuts(1);
+
+            _gameManager.StartTimer();
         }
     }
 }
