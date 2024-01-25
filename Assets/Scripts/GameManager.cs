@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public void AddCrates(int cratesToAdd)
     {
         _currentCrates += cratesToAdd;
-        _cratesText.text = _currentCrates.ToString();
+        _cratesText.text = _currentCrates + "/68";
     }
 
     public void AddPeanuts(int peanutsToAdd)
