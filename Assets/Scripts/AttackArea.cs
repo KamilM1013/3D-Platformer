@@ -70,7 +70,7 @@ public class AttackArea : MonoBehaviour
             _audioManager.Play("HitCrate");
 
             _gameManager.AddPeanuts(1);
-            _gameManager.AddCrates(1);
+            
         }
         else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking)
         {
@@ -91,8 +91,10 @@ public class AttackArea : MonoBehaviour
 
             Destroy(other.gameObject);
 
-            _gameManager.AddPeanuts(1);
+            _audioManager.Play("HitCrate");
 
+            _gameManager.AddPeanuts(1);
+            _gameManager.AddCrates(1);
             _gameManager.StartTimer();
         }
     }

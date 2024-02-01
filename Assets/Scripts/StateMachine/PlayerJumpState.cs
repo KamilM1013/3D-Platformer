@@ -35,6 +35,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
             Ctx.JumpCount = 0;
             Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
         }
+
+        Ctx.PlayerManager.Landed();
     }
 
     public override void InitializeSubState()
