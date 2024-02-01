@@ -34,6 +34,7 @@ public class PlayerStateMachine : MonoBehaviour
     // constants
     float _rotationFactorPerFrame = 15.0f;
     float _runMultiplier = 5.0f;
+    float _walkMultiplier = 1.5f;
     int _zero = 0;
 
     // gravity variable
@@ -62,6 +63,7 @@ public class PlayerStateMachine : MonoBehaviour
     float _attackTimer = 0;
     float _timeToAttack = 1.1f;
     GameObject _attackArea = default;
+    GameObject _boomerang = default;
     GameObject _attackEffectPrefab = default;
     ParticleSystem _attackParticleSystem;
 
@@ -78,9 +80,10 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public GameObject AttackArea { get { return _attackArea; } }
+    public GameObject Boomerang { get { return _boomerang; } }
     public ParticleSystem AttackParticleSystem { get { return _attackParticleSystem; } }
-
     public AudioManager AudioManager { get { return _audioManager; } }
+    public PlayerManager PlayerManager { get { return _playerManager; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int AttackCount { get { return _attackCount; } set { _attackCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
@@ -107,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
     public float RunMultiplier { get { return _runMultiplier; } set { _runMultiplier = value; } }
+    public float WalkMultiplier { get { return _walkMultiplier; } set { _walkMultiplier = value; } }
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
     public Vector3 CameraRelativeMovement { get { return _cameraRelativeMovement; } set { _cameraRelativeMovement = value; } }
 
@@ -172,8 +176,9 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         _attackArea = transform.GetChild(0).gameObject;
+        _boomerang = transform.GetChild(3).gameObject;
         _attackEffectPrefab = transform.GetChild(1).gameObject;
-        _attackParticleSystem = _attackEffectPrefab.GetComponent<ParticleSystem>();
+        //_attackParticleSystem = _attackEffectPrefab.GetComponent<ParticleSystem>();
         _characterController.Move(_appliedMovement * Time.deltaTime);
     }
 
@@ -186,7 +191,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (!_playerManager.IsDead)
         {
             _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
-            _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+            _characterController.Move((_cameraRelativeMovement) * Time.deltaTime);
         }
     }
 

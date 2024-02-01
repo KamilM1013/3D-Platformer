@@ -41,6 +41,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject _waterEffectPrefab;
     private GameObject _waterEffectInstance;
 
+    public GameObject _poofEffectPrefab;
+    private GameObject _poofEffectInstance;
+
     bool _inWater = false;
 
     int _isDeadHash;
@@ -305,13 +308,13 @@ public class PlayerManager : MonoBehaviour
             transform.parent = other.transform;
             _characterController.enabled = false;
 
-            StartCoroutine(WaitForAnim(other));
+            StartCoroutine(WaitForLiftAnim(other, 8.0f));
         }
     }
 
-    IEnumerator WaitForAnim(Collider other)
+    IEnumerator WaitForLiftAnim(Collider other, float time)
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(time);
         _characterController.enabled = true;
         transform.parent = null;
     }
@@ -326,6 +329,34 @@ public class PlayerManager : MonoBehaviour
         {
             transform.parent = null;
             _characterController.enabled = true;
+        }
+    }
+
+    public void Landed()
+    {
+        // Instantiate the effect if it hasn't been instantiated yet
+        if (_poofEffectInstance == null)
+        {
+            _poofEffectInstance = Instantiate(_poofEffectPrefab, transform.position, transform.rotation);
+        }
+        else
+        {
+            // Reposition the existing effect
+            _poofEffectInstance.transform.position = transform.position;
+            _poofEffectInstance.SetActive(true);
+        }
+
+        StartCoroutine(WaitForPoofAnim(1.0f));
+    }
+
+    IEnumerator WaitForPoofAnim(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        // Deactivate the effect if it exists
+        if (_poofEffectInstance != null)
+        {
+            _poofEffectInstance.SetActive(false);
         }
     }
 }
