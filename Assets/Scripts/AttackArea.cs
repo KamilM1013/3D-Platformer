@@ -18,6 +18,7 @@ public class AttackArea : MonoBehaviour
 
     private List<GameObject> _triggeredCheckpoints = new List<GameObject>();
     private List<GameObject> _triggeredCrates = new List<GameObject>();
+    private List<GameObject> _triggeredTimer = new List<GameObject>();
 
     private void Awake()
     {
@@ -42,9 +43,9 @@ public class AttackArea : MonoBehaviour
 
             _audioManager.Play("HitEnemy");
         }
-        else if (other.CompareTag("Checkpoint") && _playerStateMachine.IsAttacking && !_triggeredCheckpoints.Contains(other.gameObject))
+        else if (other.CompareTag("Checkpoint") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
         {
-            _triggeredCheckpoints.Add(other.gameObject); // Mark checkpoint as triggered
+            _triggeredCrates.Add(other.gameObject); // Mark checkpoint as triggered
 
             _playerManager.SetCheckpoint(other.transform.position);
             _playerManager.TriggerCheckpointUI();
@@ -70,10 +71,13 @@ public class AttackArea : MonoBehaviour
             _audioManager.Play("HitCrate");
 
             _gameManager.AddPeanuts(1);
-            
+            _gameManager.AddCrates(1);
+
         }
-        else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking)
+        else if (other.CompareTag("QuestionCrate") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
         {
+            _triggeredCrates.Add(other.gameObject); // Mark question crate as triggered
+
             Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
             Instantiate(_fireworksEffect, other.transform.position, other.transform.rotation);
             Instantiate(_fireworksEffect2, other.transform.position, other.transform.rotation);
@@ -83,10 +87,14 @@ public class AttackArea : MonoBehaviour
             _audioManager.Play("HitCrate");
             _audioManager.Play("FireWorks");
 
+            _gameManager.AddPeanuts(10);
+            _gameManager.AddCrates(1);
             _gameManager.StopTimer();
         }
-        else if (other.CompareTag("TimerCrate") && _playerStateMachine.IsAttacking)
+        else if (other.CompareTag("TimerCrate") && _playerStateMachine.IsAttacking && !_triggeredCrates.Contains(other.gameObject))
         {
+            _triggeredCrates.Add(other.gameObject); // Mark timer crate as triggered
+
             Instantiate(_crateEffect, other.transform.position, other.transform.rotation);
 
             Destroy(other.gameObject);

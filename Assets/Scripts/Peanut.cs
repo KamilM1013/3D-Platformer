@@ -36,7 +36,7 @@ public class Peanut : MonoBehaviour
 
             _audioManager.Play("Crunch");
 
-            Instantiate(_pickupEffect, transform.position, transform.rotation);
+            //Instantiate(_pickupEffect, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
