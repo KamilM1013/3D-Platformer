@@ -12,7 +12,11 @@ public class PlayerRunState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
 
-        Ctx.AudioManager.Play("Run");
+        // Play running SFX only if not in the jump state
+        if (!Ctx.AudioManager.IsPlaying("Run"))
+        {
+            Ctx.AudioManager.Play("Run");
+        }
     }
 
     public override void UpdateState()

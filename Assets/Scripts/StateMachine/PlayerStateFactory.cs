@@ -7,6 +7,7 @@ enum PlayerStates
     run,
     grounded,
     jump,
+    doubleJump,
     fall,
     attack
 }
@@ -23,6 +24,7 @@ public class PlayerStateFactory
         _states[PlayerStates.walk] = new PlayerWalkState(_context, this);
         _states[PlayerStates.run] = new PlayerRunState(_context, this);
         _states[PlayerStates.jump] = new PlayerJumpState(_context, this);
+        _states[PlayerStates.doubleJump] = new PlayerDoubleJumpState(_context, this);
         _states[PlayerStates.grounded] = new PlayerGroundedState(_context, this);
         _states[PlayerStates.fall] = new PlayerFallState(_context, this);
         _states[PlayerStates.attack] = new PlayerAttackState(_context, this);
@@ -46,6 +48,11 @@ public class PlayerStateFactory
     public PlayerBaseState Jump()
     {
         return _states[PlayerStates.jump];
+    }
+
+    public PlayerBaseState DoubleJump()
+    {
+        return _states[PlayerStates.doubleJump];
     }
 
     public PlayerBaseState Grounded()
