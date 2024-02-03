@@ -95,7 +95,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
-    public bool IsJumping { set { _isJumping = value; } }
+    public bool IsJumping { get { return _isJumping; } set { _isJumping = value; } }
     public bool DoubleJump { get { return _doubleJump; } set { _doubleJump = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsAttackPressed { get { return _isAttackPressed; } }
@@ -256,6 +256,15 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isJumpPressed = context.ReadValueAsButton();
         _requireNewJumpPress = false;
+
+        if (!CharacterController.isGrounded)
+        {
+            _doubleJump = true;
+        }
+        else
+        {
+            _doubleJump = false;
+        }
     }
 
     void OnAttack(InputAction.CallbackContext context)

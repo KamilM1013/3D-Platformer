@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerBaseState, IRootState
+public class PlayerDoubleJumpState : PlayerBaseState, IRootState
 {
-    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerDoubleJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
@@ -15,9 +15,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         InitializeSubState();
         HandleJump();
 
-        // Stop walking and running SFX
-        Ctx.AudioManager.Stop("Walk");
-        Ctx.AudioManager.Stop("Run");
+        Ctx.DoubleJump = false;
     }
 
     public override void UpdateState()
@@ -34,20 +32,10 @@ public class PlayerJumpState : PlayerBaseState, IRootState
             Ctx.RequireNewJumpPress = true;
         }
         //Ctx.CurrentJumpResetRoutine = Ctx.StartCoroutine(IJumpResetRoutine());
-        if (Ctx.JumpCount >= 1)
+        if (Ctx.JumpCount == 2)
         {
             Ctx.JumpCount = 0;
             Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
-        }
-        Ctx.IsJumping = false;
-
-        if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
-        {
-            Ctx.AudioManager.Play("Walk");
-        }
-        else
-        {
-            Ctx.AudioManager.Play("Run");
         }
     }
 
@@ -77,10 +65,6 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Attack());
         }
-        else if (Ctx.IsJumpPressed && Ctx.DoubleJump)
-        {
-            SwitchState(Factory.DoubleJump());
-        }
     }
 
     IEnumerator IJumpResetRoutine()
@@ -97,7 +81,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         }*/
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
         Ctx.IsJumping = true;
-        Ctx.JumpCount = 1;
+        Ctx.JumpCount = 2;
         Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
         Ctx.CurrentMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];

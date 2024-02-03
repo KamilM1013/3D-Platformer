@@ -6966,8 +6966,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1263388, y: -0.035199158, z: 0.0044858106, w: 0.9913523}
-  m_LocalPosition: {x: 0.45491123, y: 3.3618417, z: -6.3980045}
+  m_LocalRotation: {x: 0.16210967, y: -0.035013467, z: 0.0057558287, w: 0.9861346}
+  m_LocalPosition: {x: 0.45499623, y: 3.3618364, z: -6.3992786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16239,8 +16239,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750715583}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1263388, y: -0.035199158, z: 0.0044858106, w: 0.9913523}
-  m_LocalPosition: {x: 0.45491123, y: 3.3618417, z: -6.3980045}
+  m_LocalRotation: {x: 0.16210967, y: -0.035013467, z: 0.0057558287, w: 0.9861346}
+  m_LocalPosition: {x: 0.45499623, y: 3.3618364, z: -6.3992786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26628,7 +26628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1198210888}
-  m_PathPosition: 0.3070441
+  m_PathPosition: 0.30699968
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 3.35, z: -6.4}
   m_XDamping: 0
@@ -38302,6 +38302,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Attack Area
       objectReference: {fileID: 0}
+    - target: {fileID: 5742823190306825397, guid: fc8740f682ce3294588151c17d15399e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42824,7 +42829,7 @@ PrefabInstance:
     - target: {fileID: 8029756217623780215, guid: ce017b92aecc05a43baab04f7cd4de7b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.506
       objectReference: {fileID: 0}
     - target: {fileID: 8029756217623780215, guid: ce017b92aecc05a43baab04f7cd4de7b,
         type: 3}

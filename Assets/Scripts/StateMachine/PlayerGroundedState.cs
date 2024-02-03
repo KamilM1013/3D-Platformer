@@ -20,6 +20,8 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     {
         InitializeSubState();
         HandleGravity();
+
+        Ctx.PlayerManager.Landed();
     }
 
     public override void UpdateState()
