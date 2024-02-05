@@ -16,6 +16,7 @@ public class PlayerDoubleJumpState : PlayerBaseState, IRootState
         HandleJump();
 
         Ctx.DoubleJump = false;
+        Ctx.IsAttackingCheck = false;
     }
 
     public override void UpdateState()
@@ -61,7 +62,7 @@ public class PlayerDoubleJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress)
+        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress && !Ctx.PlayerManager.IsDead)
         {
             SwitchState(Factory.Attack());
         }

@@ -21,7 +21,12 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         InitializeSubState();
         HandleGravity();
 
-        Ctx.PlayerManager.Landed();
+        if (!Ctx.IsAttackingCheck)
+        {
+            Ctx.PlayerManager.Landed();
+        }
+
+        Ctx.IsAttackingCheck = false;
     }
 
     public override void UpdateState()
@@ -62,7 +67,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Fall());
         }
-        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress)
+        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress && !Ctx.PlayerManager.IsDead)
         {
             SwitchState(Factory.Attack());
         }
