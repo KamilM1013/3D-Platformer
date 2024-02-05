@@ -18,6 +18,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         // Stop walking and running SFX
         Ctx.AudioManager.Stop("Walk");
         Ctx.AudioManager.Stop("Run");
+
+        Ctx.IsAttackingCheck = false;
     }
 
     public override void UpdateState()
@@ -73,7 +75,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress)
+        else if (Ctx.IsAttackPressed && !Ctx.RequireNewAttackPress && !Ctx.PlayerManager.IsDead)
         {
             SwitchState(Factory.Attack());
         }
