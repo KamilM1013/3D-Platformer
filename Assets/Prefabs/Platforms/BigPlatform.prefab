@@ -58,15 +58,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3077730975316485989, guid: ed7df98399016ba4385ae6c5d367c6ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -323869110841743898, guid: ed7df98399016ba4385ae6c5d367c6ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed7df98399016ba4385ae6c5d367c6ab,
         type: 3}
       propertyPath: m_Name
       value: BigPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ed7df98399016ba4385ae6c5d367c6ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1902874737434639744, guid: ed7df98399016ba4385ae6c5d367c6ab,
         type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.99663675
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967018377901186740, guid: ed7df98399016ba4385ae6c5d367c6ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: ed7df98399016ba4385ae6c5d367c6ab,
         type: 3}
