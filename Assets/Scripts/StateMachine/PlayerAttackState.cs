@@ -71,7 +71,6 @@ public class PlayerAttackState : PlayerBaseState, IRootState
         Ctx.AttackArea.SetActive(Ctx.IsAttacking);
         Ctx.Boomerang.SetActive(Ctx.IsAttacking);
         Ctx.Animator.SetBool(Ctx.AttackHash, true);
-        //Ctx.AttackParticleSystem.Play();
     }
 
     public void HandleGravity()
